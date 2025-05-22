@@ -88,13 +88,20 @@ maybe_factors <-
     keep(\(df) nrow(df) < 100) |>
     names()
 
-# data <-
-#     data |>
-#     mutate(
-#         across(
-#             .cols = maybe_factors,
-#             .fns = forcats::
-#         )
-#     )
+data <-
+    data |>
+    mutate(
+        across(
+            .cols = maybe_factors,
+            .fns = \(col) {
+                col |>
+                forcats::as_factor() |>
+                forcats::fct_infreq()
+            }
+        )
+    )
 
+data |>
+select(all_of(maybe_factors)) |>
+summary()
 ## Visualization
