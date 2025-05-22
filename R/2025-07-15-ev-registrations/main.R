@@ -9,6 +9,8 @@ library(ggplot2) # for data visualizations
 library(nanoparquet) # low dependancy parquet files
 library(fs) # file manipulations
 library(lubridate) # date manipulations
+library(forcats) # for factors
+library(purrr) # for functional programming
 
 ## Data Pull
 domain <- "https://data.ct.gov/"
@@ -39,6 +41,7 @@ if (!file_exists(path)) {
         resp |>
         resp_body_json() |>
         bind_rows() |>
+        ### enforcing column types from ODP doco
         mutate(
             across(
                 .cols = c(
@@ -65,9 +68,22 @@ if (!file_exists(path)) {
 
 data <- read_parquet(path)
 
+## Data Exploration
+
 ### take a look
 glimpse(data)
 
-## Data Wrangle
+char_data <-
+    data |>
+    select(where(is.character))
+
+### sussing out good factor candidates
+maybe_factors <-
+    map(
+        char_data,
+        \(var) {
+            count(char_data, {{var}}, sort = TRUE)
+        }
+    )
 
 ## Visualization
