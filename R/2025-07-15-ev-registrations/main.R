@@ -82,8 +82,19 @@ maybe_factors <-
     map(
         char_data,
         \(var) {
-            count(char_data, {{var}}, sort = TRUE)
+            count(char_data, {{ var }}, sort = TRUE)
         }
-    )
+    ) |>
+    keep(\(df) nrow(df) < 100) |>
+    names()
+
+# data <-
+#     data |>
+#     mutate(
+#         across(
+#             .cols = maybe_factors,
+#             .fns = forcats::
+#         )
+#     )
 
 ## Visualization
