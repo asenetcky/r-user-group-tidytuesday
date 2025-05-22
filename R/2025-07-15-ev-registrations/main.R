@@ -29,35 +29,44 @@ req <- request(endpoint)
 req |> req_dry_run()
 
 ### GET response
-resp <- req_perform(req)
+path <- path_wd("data", "ev-registrations", ext = "parquet")
 
-### convert resp to data we can use
-data <- 
-    resp |>
-    resp_body_json() |>
-    bind_rows() |>
-    mutate(
-        across(
-            .cols = c(
-                id, 
-                vehicleweight, 
-                vehicleyear,
-                vehicledeclaredgrossweight,
-                vehiclerecordedgvwr,
+if (!file_exists(path)) {
+    resp <- req_perform(req)
+
+    ### convert resp to data we can use
+    data <-
+        resp |>
+        resp_body_json() |>
+        bind_rows() |>
+        mutate(
+            across(
+                .cols = c(
+                    id,
+                    vehicleweight,
+                    vehicleyear,
+                    vehicledeclaredgrossweight,
+                    vehiclerecordedgvwr,
                 ),
-            .fns = as.numeric
-        ),
-        across(
-            .cols = c(registration_date_start, registration_date_expiration),
-            .fns = as_date
+                .fns = as.numeric
+            ),
+            across(
+                .cols = c(
+                    registration_date_start,
+                    registration_date_expiration
+                ),
+                .fns = as_date
+            )
         )
-    )
+
+    ### parquet this for later
+    write_parquet(data, path)
+}
+
+data <- read_parquet(path)
 
 ### take a look
 glimpse(data)
-
-### parquet this for later
-write_parquet(data, path_wd("data", "ev-registrations", ext = "parquet"))
 
 ## Data Wrangle
 
