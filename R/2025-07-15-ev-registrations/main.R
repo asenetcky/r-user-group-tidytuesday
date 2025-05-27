@@ -155,3 +155,20 @@ fig_agg_by_year_quarter_type <-
 fig_agg_by_year_quarter_type +
     facet_grid(cols = vars(year)) +
     labs(title = "Natural Log of Vehicle Type Count by Quarter by Year")
+
+
+### output
+figure <-
+    fig_agg_by_year_quarter_type +
+    facet_grid(cols = vars(year)) +
+    labs(title = "Natural Log of Vehicle Type Count by Quarter by Year")
+
+
+ggsave(
+    filename = fs::path_wd(
+        "output",
+        "agg_type_year_quarter",
+        ext = "png"
+    ),
+    plot = figure
+)
