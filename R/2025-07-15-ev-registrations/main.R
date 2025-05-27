@@ -107,8 +107,43 @@ data |>
 
 ## Visualizations
 
-### exploratory visuals
+###  WIP
+###
+### TODO need better transforms and language aroundthat
 
 data |>
+    mutate(
+        year = year(registration_date_start),
+        quarter = quarter(
+            registration_date_start
+            # unit = "quarter"
+        ),
+        vehicletype = forcats::fct_lump_prop(vehicletype, prop = .01)
+    ) |>
+    group_by(year, quarter, vehicletype) |>
+    count(name = "type_count") |>
+    ungroup() |>
+    mutate(type_count = log10(type_count)) |>
     ggplot() +
-    geom_bar(aes(registration_date_start, fill = vehicletype))
+    geom_col(
+        aes(
+            quarter,
+            type_count,
+            fill = vehicletype
+        ),
+        position = position_dodge(),
+        col = "black"
+    ) +
+    facet_grid(. ~ year) +
+    scale_fill_viridis_d() +
+    theme_classic() +
+    theme(
+        legend.position = "bottom",
+        legend.direction = "horizontal"
+    ) +
+    labs(
+        x = "",
+        y = "",
+        fill = "",
+        title = "Log10 Vehicle Type by Quarter by Year"
+    )
