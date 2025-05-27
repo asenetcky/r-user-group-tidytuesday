@@ -92,16 +92,23 @@ data <-
     data |>
     mutate(
         across(
-            .cols = maybe_factors,
+            .cols = all_of(maybe_factors),
             .fns = \(col) {
                 col |>
-                forcats::as_factor() |>
-                forcats::fct_infreq()
+                    forcats::as_factor() |>
+                    forcats::fct_infreq()
             }
         )
     )
 
 data |>
-select(all_of(maybe_factors)) |>
-summary()
-## Visualization
+    select(all_of(maybe_factors)) |>
+    summary()
+
+## Visualizations
+
+### exploratory visuals
+
+data |>
+    ggplot() +
+    geom_bar(aes(registration_date_start, fill = vehicletype))
