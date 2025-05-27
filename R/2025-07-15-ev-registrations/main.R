@@ -111,16 +111,25 @@ data |>
 ###
 ### TODO need better transforms and language aroundthat
 
-data |>
+### add year, quarter and factor lump
+agg_by_year_quarter_type <-
+    data |>
     mutate(
         year = year(registration_date_start),
         quarter = quarter(registration_date_start),
-        vehicletype = forcats::fct_lump_prop(vehicletype, prop = .01)
+        vehicletype = forcats::fct_lump_prop(
+            vehicletype,
+            prop = .01
+        )
     ) |>
     group_by(year, quarter, vehicletype) |>
     count(name = "type_count") |>
     ungroup() |>
-    mutate(log_type = log(type_count)) |>
+    mutate(log_type = log(type_count))
+
+### column chart
+fig_agg_by_year_quarter_type <-
+    agg_by_year_quarter_type |>
     ggplot() +
     geom_col(
         aes(
@@ -131,7 +140,6 @@ data |>
         position = position_dodge(),
         col = "black"
     ) +
-    facet_grid(. ~ year) +
     scale_fill_viridis_d() +
     theme_classic() +
     theme(
@@ -141,6 +149,9 @@ data |>
     labs(
         x = "",
         y = "",
-        fill = "",
-        title = "Natural Log of Vehicle Type Count by Quarter by Year"
+        fill = ""
     )
+
+fig_agg_by_year_quarter_type +
+    facet_grid(cols = vars(year)) +
+    labs(title = "Natural Log of Vehicle Type Count by Quarter by Year")
