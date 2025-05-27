@@ -131,8 +131,7 @@
       "Description": "Provides color schemes for maps (and other graphics) designed by Cynthia Brewer as described at http://colorbrewer2.org.",
       "License": "Apache License 2.0",
       "NeedsCompilation": "no",
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "askpass": {
       "Package": "askpass",
@@ -404,6 +403,48 @@
       "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
       "Repository": "CRAN"
     },
+    "forcats": {
+      "Package": "forcats",
+      "Version": "1.0.0",
+      "Source": "Repository",
+      "Title": "Tools for Working with Categorical Variables (Factors)",
+      "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", role = c(\"aut\", \"cre\")), person(\"RStudio\", role = c(\"cph\", \"fnd\")) )",
+      "Description": "Helpers for reordering factor levels (including moving specified levels to front, ordering by first appearance, reversing, and randomly shuffling), and tools for modifying factor levels (including collapsing rare levels into other, 'anonymising', and manually 'recoding').",
+      "License": "MIT + file LICENSE",
+      "URL": "https://forcats.tidyverse.org/, https://github.com/tidyverse/forcats",
+      "BugReports": "https://github.com/tidyverse/forcats/issues",
+      "Depends": [
+        "R (>= 3.4)"
+      ],
+      "Imports": [
+        "cli (>= 3.4.0)",
+        "glue",
+        "lifecycle",
+        "magrittr",
+        "rlang (>= 1.0.0)",
+        "tibble"
+      ],
+      "Suggests": [
+        "covr",
+        "dplyr",
+        "ggplot2",
+        "knitr",
+        "readr",
+        "rmarkdown",
+        "testthat (>= 3.0.0)",
+        "withr"
+      ],
+      "VignetteBuilder": "knitr",
+      "Config/Needs/website": "tidyverse/tidytemplate",
+      "Config/testthat/edition": "3",
+      "Encoding": "UTF-8",
+      "LazyData": "true",
+      "RoxygenNote": "7.2.3",
+      "NeedsCompilation": "no",
+      "Author": "Hadley Wickham [aut, cre], RStudio [cph, fnd]",
+      "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+      "Repository": "CRAN"
+    },
     "fs": {
       "Package": "fs",
       "Version": "1.6.5",
@@ -476,7 +517,7 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut, cre] (ORCID: <https://orcid.org/0000-0003-4757-117X>), Max Kuhn [aut], Davis Vaughan [aut], Posit Software, PBC [cph, fnd] (ROR: <https://ror.org/03wc8by49>)",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "ggplot2": {
       "Package": "ggplot2",
@@ -684,7 +725,7 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut, cre], Posit Software, PBC [cph, fnd], Maximilian Girlich [ctb]",
       "Maintainer": "Hadley Wickham <hadley@posit.co>",
-      "Repository": "CRAN"
+      "Repository": "https://packagemanager.posit.co/cran/latest"
     },
     "isoband": {
       "Package": "isoband",
@@ -739,8 +780,7 @@
         "stats",
         "graphics"
       ],
-      "Repository": "CRAN",
-      "Encoding": "UTF-8"
+      "Repository": "CRAN"
     },
     "lattice": {
       "Package": "lattice",
@@ -1116,6 +1156,53 @@
       "BugReports": "https://github.com/r-lib/pkgconfig/issues",
       "Encoding": "UTF-8",
       "NeedsCompilation": "no",
+      "Repository": "CRAN"
+    },
+    "purrr": {
+      "Package": "purrr",
+      "Version": "1.0.4",
+      "Source": "Repository",
+      "Title": "Functional Programming Tools",
+      "Authors@R": "c( person(\"Hadley\", \"Wickham\", , \"hadley@posit.co\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0003-4757-117X\")), person(\"Lionel\", \"Henry\", , \"lionel@posit.co\", role = \"aut\"), person(\"Posit Software, PBC\", role = c(\"cph\", \"fnd\"), comment = c(ROR = \"03wc8by49\")) )",
+      "Description": "A complete and consistent functional programming toolkit for R.",
+      "License": "MIT + file LICENSE",
+      "URL": "https://purrr.tidyverse.org/, https://github.com/tidyverse/purrr",
+      "BugReports": "https://github.com/tidyverse/purrr/issues",
+      "Depends": [
+        "R (>= 4.0)"
+      ],
+      "Imports": [
+        "cli (>= 3.6.1)",
+        "lifecycle (>= 1.0.3)",
+        "magrittr (>= 1.5.0)",
+        "rlang (>= 1.1.1)",
+        "vctrs (>= 0.6.3)"
+      ],
+      "Suggests": [
+        "covr",
+        "dplyr (>= 0.7.8)",
+        "httr",
+        "knitr",
+        "lubridate",
+        "rmarkdown",
+        "testthat (>= 3.0.0)",
+        "tibble",
+        "tidyselect"
+      ],
+      "LinkingTo": [
+        "cli"
+      ],
+      "VignetteBuilder": "knitr",
+      "Biarch": "true",
+      "Config/build/compilation-database": "true",
+      "Config/Needs/website": "tidyverse/tidytemplate, tidyr",
+      "Config/testthat/edition": "3",
+      "Config/testthat/parallel": "TRUE",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.3.2",
+      "NeedsCompilation": "yes",
+      "Author": "Hadley Wickham [aut, cre] (<https://orcid.org/0000-0003-4757-117X>), Lionel Henry [aut], Posit Software, PBC [cph, fnd] (03wc8by49)",
+      "Maintainer": "Hadley Wickham <hadley@posit.co>",
       "Repository": "CRAN"
     },
     "rappdirs": {
