@@ -1,6 +1,6 @@
 ### functionlize this
 
-pull_odp <- function(domain = "https://data.ct.gov/", resource, type = "json") {
+pull_odp <- function(domain = "https://data.ct.gov/", resource) {
   # validate user input
   checkmate::assert(
     checkmate::check_string(domain),
@@ -8,12 +8,11 @@ pull_odp <- function(domain = "https://data.ct.gov/", resource, type = "json") {
       resource,
       n.chars = 9L
     ),
-    checkmate::check_choice(type, choices = c("json", "csv")),
     combine = "and"
   )
 
   # construct url
-  resource_string <- glue::glue("resource/{resource}.{type}")
+  resource_string <- glue::glue("resource/{resource}.json")
 
   # construct limit
   limit <- 10000
@@ -25,6 +24,13 @@ pull_odp <- function(domain = "https://data.ct.gov/", resource, type = "json") {
   )
 
   print(endpoint)
+
+  # grab all data
+  offset <- 0
+  initial_pull <- data.frame()
+
+  while (condition) {
+  }
 }
 
 pull_odp(resource = "y7ky-5wcz")
