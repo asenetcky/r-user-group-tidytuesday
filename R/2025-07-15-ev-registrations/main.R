@@ -114,21 +114,18 @@ data |>
 data |>
     mutate(
         year = year(registration_date_start),
-        quarter = quarter(
-            registration_date_start
-            # unit = "quarter"
-        ),
+        quarter = quarter(registration_date_start),
         vehicletype = forcats::fct_lump_prop(vehicletype, prop = .01)
     ) |>
     group_by(year, quarter, vehicletype) |>
     count(name = "type_count") |>
     ungroup() |>
-    mutate(type_count = log10(type_count)) |>
+    mutate(log_type = log(type_count)) |>
     ggplot() +
     geom_col(
         aes(
             quarter,
-            type_count,
+            log_type,
             fill = vehicletype
         ),
         position = position_dodge(),
@@ -145,5 +142,5 @@ data |>
         x = "",
         y = "",
         fill = "",
-        title = "Log10 Vehicle Type by Quarter by Year"
+        title = "Natural Log of Vehicle Type Count by Quarter by Year"
     )
