@@ -16,35 +16,35 @@ pull_odp <- function(domain = "https://data.ct.gov/", resource) {
 
   # construct limit
   limit <- 10000
-  limit_string <- glue::glue("$limit={limit}")
-
-  ### combine it all
-  initial_endpoint <- glue::glue(
-    "{domain}{resource_string}?{limit_string}"
-  )
-
-  # for testing
-  print(initial_endpoint)
 
   # initial params
   offset <- 0
-
-  # initial pull - fail fast
-  initial_pull <-
-    httr2::request(initial_endpoint) |>
-    httr2::req_perform() |>
-    httr2::resp_body_json() |>
-    dplyr::bind_rows()
+  initial <- TRUE
 
   # grab all data
-  while (condition) {
-    offset <- offset + limit
-    offset_string <- "$offset={offset}"
-
-    new_endpoint <- glue::glue(
-      "{initial_endpoint}&{offset_string}"
+  while (TRUE) {
+    endpoint <- glue::glue(
+      "{domain}{resource_string}?$limit={limit}&$offset={offset}"
     )
-  }
-}
 
-pull_odp(resource = "y7ky-5wcz")
+    data <-
+      httr2::request(endpoint) |>
+      httr2::req_perform() |>
+      httr2::resp_body_json() |>
+      dplyr::bind_rows()
+
+    rows <- nrow(data)
+
+    if (initial) {
+      result <- data
+      initial <- FALSE
+    } else {
+      result <- dplyr::bind_rows(result, data)
+    }
+
+    if (rows < limit) break
+
+    offset <- offset + limit
+  }
+  return(result)
+}
