@@ -1,5 +1,3 @@
-### functionlize this
-
 pull_odp <- function(domain = "https://data.ct.gov/", resource) {
   # validate user input
   checkmate::assert(
