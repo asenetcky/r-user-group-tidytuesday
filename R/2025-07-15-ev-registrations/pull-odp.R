@@ -19,17 +19,31 @@ pull_odp <- function(domain = "https://data.ct.gov/", resource) {
   limit_string <- glue::glue("$limit={limit}")
 
   ### combine it all
-  endpoint <- glue::glue(
+  initial_endpoint <- glue::glue(
     "{domain}{resource_string}?{limit_string}"
   )
 
-  print(endpoint)
+  # for testing
+  print(initial_endpoint)
+
+  # initial params
+  offset <- 0
+
+  # initial pull - fail fast
+  initial_pull <-
+    httr2::request(initial_endpoint) |>
+    httr2::req_perform() |>
+    httr2::resp_body_json() |>
+    dplyr::bind_rows()
 
   # grab all data
-  offset <- 0
-  initial_pull <- data.frame()
-
   while (condition) {
+    offset <- offset + limit
+    offset_string <- "$offset={offset}"
+
+    new_endpoint <- glue::glue(
+      "{initial_endpoint}&{offset_string}"
+    )
   }
 }
 
