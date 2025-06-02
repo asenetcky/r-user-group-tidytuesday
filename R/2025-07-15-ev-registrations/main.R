@@ -107,10 +107,6 @@ data |>
 
 ## Visualizations
 
-###  WIP
-###
-### TODO need better transforms and language aroundthat
-
 ### add year, quarter and factor lump
 agg_by_year_quarter_type <-
     data |>
